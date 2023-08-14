@@ -22,7 +22,7 @@
                 </div>
             `).join('\n')
                     
-        episodesList.setHTML(getEpisodes(episodes))
+        episodesList.innerHTML = getEpisodes(episodes)
         </script>
     <script>
         episodesList.addEventListener('click', (event) =>
