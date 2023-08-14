@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to DM</title>
+</head>
+    <div class="episodes-container">
+        <div class="episodes-list"></div>
+    </div>
+<body>
+    <script src="./episodes.js"></script>
+    <script>
+        // global: episodes
+        episodesList = document.querySelector('.episodes-list')
+        const getEpisodes = (data) =>
+            data.map(d => `
+                <div class="episode">
+                    <input class="episode-watched" type="checkbox" id="watched-${d.id}" />
+                    <span class="episode-name">${d.name}</span>
+                    <a class="episode-open" href="${d.external_urls.spotify}">open</a>
+                </div>
+            `).join('\n')
+                    
+        episodesList.setHTML(getEpisodes(episodes))
+        </script>
+    <script>
+        episodesList.addEventListener('click', (event) =>
+        {
+            lastEvent = event
+            console.log(event)
+            if(event.target.className === "episode-watched")
+            {
+                console.log(event.target.id.split('-')[1])
+                console.log(event.target.checked)
+            }
+        })
+    </script>
+    <script>
+        episodeCheckBoxes = Object.fromEntries(
+            [...document.querySelectorAll('.episode-watched')]
+            .map(cb => [
+                cb.id.split('-')[1],
+                cb
+            ])
+        )
+        // check off random
+        episodeIdList = episodes.map(e => e.id)
+        randomEpisodeId = episodeIdList[Math.trunc(Math.random() * episodeIdList.length)]
+        console.log(randomEpisodeId)
+        episodeCheckBoxes[randomEpisodeId].checked = true
+    </script>
+    <script>
+        // state is ids and "is watched"
+        //state = ...
+    </script>
+</body>
+</html>
